@@ -3,11 +3,11 @@ import FilterForm from "../components/filterForm";
 import tempMap from "../assets/background/temMapImage.jpg";
 import { Many } from "lodash";
 import MyMapComponent from "../components/maps";
-import { getFilteredPlayers } from "../services/playerService";
+import { getAllPlayers, getFilteredPlayers } from "../services/playerService";
 const Home = () => {
 	useEffect(() => {
 		function fetchApi() {
-			getFilteredPlayers();
+			getAllPlayers();
 		}
 		fetchApi();
 	}, []);

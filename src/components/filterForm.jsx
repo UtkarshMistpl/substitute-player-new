@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import MultiSelect from "react-multiple-select-dropdown-lite";
 import "react-multiple-select-dropdown-lite/dist/index.css";
 import { useState } from "react";
+import { getFilteredPlayers } from "../services/playerService";
 
 const FilterForm = () => {
 	const SPORTS = [
@@ -39,8 +40,18 @@ const FilterForm = () => {
 		location: "",
 	};
 
-	const handleSubmit = (values) => {
+	const handleSubmit = async (values) => {
 		console.log("Input Values", values);
+		let result = await getFilteredPlayers({
+			days: ["Monday", "Tuesday", "Thursday"],
+			sports: ["Cricket", "Football"],
+			_from: "19:00:00",
+			_to: "21:40:00",
+			distance: "3",
+			lat: "23.3037847",
+			lng: "77.3811311",
+		});
+		console.log(result);
 	};
 
 	const [valueSports, setvalueSports] = useState("");
@@ -72,7 +83,7 @@ const FilterForm = () => {
 									setvalueSports(e.target.value);
 								}}
 							>
-								<option selected>Open this select menu</option>
+								<option defaultValue={""}>Open this select menu</option>
 								{SPORTS.map((row, index) => {
 									return (
 										<option key={index} value={row.value}>
@@ -91,7 +102,7 @@ const FilterForm = () => {
 								aria-label="Default select example"
 								onChange={handleFilterChange}
 							>
-								<option selected>Open this select menu</option>
+								<option defaultValue={""}>Open this select menu</option>
 								{DAYS.map((row, index) => {
 									return (
 										<option key={index} value={row.value}>
